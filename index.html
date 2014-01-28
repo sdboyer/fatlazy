@@ -37,24 +37,143 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>Fat Stack, Lazy Stack</h1>
-					<h3>Drupal shits on everything</h3>
+        <h1>Fat Stack, Lazy Stack</h1>
+					<h3>When your stack gives up</h3>
 					<p>
 						<small>Sam Boyer <a href="http://twitter.com/sdboyer">@sdboyer</a></small>
 					</p>
 				</section>
+          <section>
+          <h2>Me</h2>
+          <ul>
+            <li>Drupaller since 2008</li>
+            <li>Maintain[ed] a couple of very popular modules</li>
+            <li>Architect of the drupal.org Git hosting platform</li>
+            <li>Co-lead of a Drupal 8 initiative</li>
+            <li>DevOps zealot</li>
+            <li>Also, guy who really needs a break from Drupal</li>
+          </ul>
+          </section>
 
 				<section>
-					<h2>Heads Up</h2>
-					<p>
-						reveal.js is a framework for easily creating beautiful presentations using HTML. You'll need a browser with
-						support for CSS 3D transforms to see it in its full glory.
+					<h2>Drupal</h2>
+          <p>
+          <ul>
+          <li>13-year old PHP framlication/CMS</li>
+          <li>Old-school LAMP (mostly)</li>
+          <li>With javascript, tail wags the dog</li>
+          </ul>
 					</p>
 
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+          <aside class="notes">
+          <ul>
+            <li>Drupal is a traditional server-side LAMP application</li>
+            <li>While it can technically run on PostgreSQL or SQLite, mysql/maria is the 98.5% use case</li>
+            <li>jQuery, jQuery UI come packaged; core ships with JS extensions to make it easier to work with Drupal's pseudo-apis</li>
+            <li>Every major release breaks backwards compatibility - an attempt to keep things spry.</li>
+            <li>Community is ginormous. Some 25k modules (code extensions), 2k themes (in the old-school visual design, "skinning" sense)</li>
+            <li>Simplest way to understand Drupal the split-mind/use case: (almost) it's not a real thing until a clickable configuration option has been created.</li>
+          </ul>
 					</aside>
-				</section>
+          </section>
+          <section>
+          <h2>By strict definition, Drupal is a "full stack" application...</h2>
+          </section>
+          <section>
+          <h2>But really, it's more "lazy" than "full."</h2>
+          <aside class="notes">
+            It has grown slothful, fat! Made weak, on the mead of a split-brain use case!
+          </aside>
+          </section>
+
+          <section>
+          <section>
+          <h2>KNOW YOUR USE CASE</h2>
+          </section>
+          <section>
+          <h3>Full stack engineering starts long before keystrokes hit vim</h3>
+          <aside class="notes">
+          The whole point of learning the full stack is so that you know the full vertical slice for solving a problem. But all that shit is useless if you don't know what problem you're trying to solve.
+          This is similar, but different, from the role of architect: you don't necessarily have to understand *why* the layers fit together the way they do. It's OK to focus on the *how* first. You should have an intuition about what you do, and don't, want to "get for free," because you can see the inefficiencies in layer interchange.
+          </aside>
+          </section>
+          <section>
+          <h2>There are approaches to this!</h3>
+          <ul>
+            <li>Domain modeling</li>
+            <li>Content strategy</li>
+            <li>Behavior-driven development</li>
+            <li>UX (to an extent)</li>
+          </ul>
+          <aside class="notes">
+            <a href="http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">DDD</a>
+          </aside>
+          </section>
+          <section>
+          <h3>Drupal has AAAALL its own words. Good luck modeling.</h3>
+          <aside class="notes">
+          <p>Terminology is really important in domain modeling, but Drupal gets that wrong immediately.
+          Forces use of Drupal nomenclature and concepts - entities, content types, taxonomy, view modes - to talk about major domain concepts.
+          </p>
+          </aside>
+          </section>
+          <section>
+          <h3>Content model is *really* flexible, though.</h3>
+          <aside class="notes">
+          <p> But because that all ends up being interface-driven, Drupal ends up as "the system for people who haven't figured out their use case, yet."
+          This is one of those key ways that the stack makes you lazy: by making it (ostensibly) easier to change data models later, a lazy mess is made of the modeling process.
+          TODO: drop in a picture of Drupal interface vs. screenie of simple models-as-code.
+          </p>
+          </aside>
+          </section>
+          <section>
+          <h3>So, what is Drupal's use case?</h3>
+          <aside>
+          <p>
+          Answer: nobody knows. Anything, and nothing. For a web framework, this is fine. For a CMS, it's less fine.
+          Again, Drupal's niche is figuring helping you figure out your use case as you go along. In a way, it's kinda a great prototyping rule. Or, it would be, if it didn't take a relaive expert to know what aspects of the prototype were relevant, and what weren't.
+          </p>
+          </aside>
+          </section>
+          </section>
+
+          <section>
+          <section>
+          <h2>LAYERS ONLY HELP IF YOU KNOW THEM</h2>
+          <aside class="notes">
+          <p>
+          The heart of FSE. What can we say for Drupal? Well, it *has* a stack. jQuery, PHP, MySQL. In D8, a teensie bit of backbone, and a REST interface to content.
+          </p>
+          </aside>
+          </section>
+          <section>
+          <h3>Full-stack-ish layers</h3>
+          <p>TODO - image!</p>
+          <aside class="notes">
+          <p>Now, full stacks are looking increasingly diverse today, but this is still a roughly good picture.
+          There's the client end, where you may see a frontend framework (or not), and some of what's traditionally serverside might have scooted up there, too.
+          Then there's the serverside, which has a bunch of stuff we're all accustomed to seeing - models and business logic, sessions, routing, an ORM or DBAL of some kind.
+          And then finally, the persistence layers, with varying degrees of volatility and canonicality.
+
+          The specifics here vary, but most web applications have to answer something like this set of questions.
+          </p>
+          </aside>
+          </section>
+          <section>
+          <h3>Drupal's layers</h3>
+          <p>TODO - image!</p>
+          <aside class="notes">
+          Drupal works from the middle, dictating most of the other layers. Everything in the middle section is bundled in and only some are "swappable".
+
+          It significantly dictates output formats, making it harder to swap in a frontend framework. Only the most experienced Drupallers are now experimenting with Angular-driven frontends.
+          It is, for most practical purposes, incompatible with NoSQL backends for persistent storage. Again, only the most advanced have done it with much success.
+          A lot of the time, this is fine. But proper FSEs will start chafing at this sooner or later.
+          </aside>
+          </section>
+          <section>
+            <h3></h3>
+          </section>
+          </section>
 
 				<!-- Example of nested vertical slides -->
 				<section>
