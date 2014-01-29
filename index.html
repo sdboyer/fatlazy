@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Full Stack, Lazy Stack</title>
+		<title>Tight Stack, Lazy Stack</title>
 
 		<meta name="description" content="How does 'full stack engineering' fit with Drupal?">
 		<meta name="author" content="Sam Boyer">
@@ -14,11 +14,14 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/xkcd.css">
 		<link rel="stylesheet" href="css/theme/default.css" id="theme">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <script src="js/d3v2.js" type="text/javascript"></script>
+    <script src="js/xkcd.js" type="text/javascript"></script>
 
 		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
 		<script>
@@ -37,15 +40,18 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-        <h1>Full Stack, Lazy Stack</h1>
+        <h1>Tight Stack, Lazy Stack</h1>
 					<p>
 						<small>Sam Boyer <a href="http://twitter.com/sdboyer">@sdboyer</a></small>
 					</p>
-        <aside class="notes">
+          <aside class="notes">
+          <p>
         Hi everybody, my name is...
         Title of my talk is...
         In talking about Full Stack Engineering, it's important to recognize the difference between the sort of full stack we like - trim, tight, and focused - and a full stack that's lazy.
         So that's what I'm gonna do. And I'm gonna do it by picking on Drupal.
+        </p>
+        <p>how many people in the crowd have used Drupal? how many would consider themselves "Drupalistas?"</p>
         </aside>
         </section>
           <section>
@@ -55,7 +61,9 @@
             <li>Maintain[ed] a couple of very popular modules</li>
             <li>Architect of the drupal.org Git hosting platform</li>
             <li>Co-lead of a Drupal 8 initiative</li>
+            <li>Architect-y person with NBCUniversal</li>
             <li>DevOps zealot</li>
+            <li>Nowadays, I do PHP, Go, Ruby, JS, and Python</li>
             <li class="fragment">And probably, a guy who really needs a break from Drupal</li>
           </ul>
           </section>
@@ -81,7 +89,7 @@
 					</aside>
           </section>
           <section>
-          <h2>By strict definition, Drupal is a "full stack" application...</h2>
+          <h2>Drupal is, itself, a full stack application<h2>
           <aside class="notes">
           <ul>
             <li>jQuery, jQuery UI come packaged; core ships with JS extensions to make it easier to work with Drupal's pseudo-apis</li>
@@ -91,19 +99,76 @@
           </aside>
           </section>
           <section>
-          <h2>But really, it's more "lazy" than "full."</h2>
+          <h2>But way more "lazy" than "tight."</h2>
           <aside class="notes">
           </aside>
           </section>
 
           <section>
-            <h2>So, what's a lazy stack?</h2>
-            <h2></h2>
+          <h2>OK, back up. Lazy stack? Tight stack?</h2>
+          <h2 class="fragment">Let's get meta!</h2>
+          <aside class="notes">
+          <p>So, this distinction is my key point here. Every functioning application encompasses the full stack, somehow.</p>
+          <p>So when we talk about being an FSE, we mean, "how well do you handle the whole stack?". The hidden issue there, though, is the quality of the stack you're handling. So let's talk about that!</p>
+          </aside>
           </section>
 
           <section>
           <section>
-          <h2>PART ONE: LAYERS!</h2>
+          <h2>PART ONE: KNOW YOUR USE CASE</h2>
+          </section>
+          <section>
+          <h3>"Full stack" starts long before bytes hit vim</h3>
+          <aside class="notes">
+          The whole point of learning the full stack is so that you know the full vertical slice for solving a problem. But all that shit is useless if you don't know what problem you're trying to solve.
+          This is similar, but different, from the role of architect: you don't necessarily have to understand *why* the layers fit together the way they do. It's OK to focus on the *how* first. You should have an intuition about what you do, and don't, want to "get for free," because you can see the inefficiencies in layer interchange.
+          </aside>
+          </section>
+          <section>
+          <h2>There are approaches to this!</h3>
+          <ul>
+            <li>UX (kinda sorta)</li>
+            <li>Behavior-driven development</li>
+            <li>Content strategy</li>
+            <li>Domain modeling</li>
+          </ul>
+          <aside class="notes">
+          <a href="http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">DDD</a>
+          <p>if you don't at least know what these approaches are and what they emphasize, i'd challenge the idea that you're an FSE</p>
+          <p>in particular, domain modeling tells us about creating a shared vocabulary, right off the bat.</p>
+          </aside>
+          </section>
+          <section>
+          <h3>Drupal has AAAALL its own words. Good luck modeling.</h3>
+          <aside class="notes">
+          <p>Terminology is really important in domain modeling, but Drupal gets that wrong immediately.
+          Forces use of Drupal nomenclature and concepts - entities, content types, taxonomy, view modes - to talk about major domain concepts.
+          </p>
+          </aside>
+          </section>
+          <section>
+          <h3>Content model is *really* flexible, though.</h3>
+          <aside class="notes">
+          <p> But because that all ends up being interface-driven, Drupal ends up as "the system for people who haven't figured out their use case, yet."
+          This is one of those key ways that the stack makes you lazy: by making it (ostensibly) easier to change data models later, a lazy mess is made of the modeling process.
+          TODO: drop in a picture of Drupal interface vs. screenie of simple models-as-code.
+          </p>
+          </aside>
+          </section>
+          <section>
+          <h3>So, what is Drupal's use case?</h3>
+          <aside class="notes">
+          <p>
+          Answer: nobody knows. Anything, and nothing. For a web framework, this is mostly fine. For a CMS, it's way less fine.
+          Again, Drupal's niche is figuring helping you figure out your use case as you go along. In a way, it's kinda a great prototyping rule. Or, it would be, if it didn't take a relaive expert to know what aspects of the prototype were relevant, and what weren't.
+          </p>
+          </aside>
+          </section>
+          </section>
+
+          <section>
+          <section>
+          <h2>PART TWO: LAYERS!</h2>
           <aside class="notes">
           <p>
           Layers - the heart of FSE. They are the pieces of the stack. What can we say for Drupal? Well, it *has* a stack. jQuery, PHP, MySQL. In D8, a teensie bit of backbone, and a REST interface to content.
@@ -178,59 +243,9 @@
           </aside>
           </section>
           </section>
-          <section>
-          <section>
-          <h2>PART TWO: KNOW YOUR USE CASE</h2>
-          </section>
-          <section>
-          <h3>Full stack engineering starts long before keystrokes hit vim</h3>
-          <aside class="notes">
-          The whole point of learning the full stack is so that you know the full vertical slice for solving a problem. But all that shit is useless if you don't know what problem you're trying to solve.
-          This is similar, but different, from the role of architect: you don't necessarily have to understand *why* the layers fit together the way they do. It's OK to focus on the *how* first. You should have an intuition about what you do, and don't, want to "get for free," because you can see the inefficiencies in layer interchange.
-          </aside>
-          </section>
-          <section>
-          <h2>There are approaches to this!</h3>
-          <ul>
-            <li>Domain modeling</li>
-            <li>Content strategy</li>
-            <li>Behavior-driven development</li>
-            <li>UX (to an extent)</li>
-          </ul>
-          <aside class="notes">
-            <a href="http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">DDD</a>
-          </aside>
-          </section>
-          <section>
-          <h3>Drupal has AAAALL its own words. Good luck modeling.</h3>
-          <aside class="notes">
-          <p>Terminology is really important in domain modeling, but Drupal gets that wrong immediately.
-          Forces use of Drupal nomenclature and concepts - entities, content types, taxonomy, view modes - to talk about major domain concepts.
-          </p>
-          </aside>
-          </section>
-          <section>
-          <h3>Content model is *really* flexible, though.</h3>
-          <aside class="notes">
-          <p> But because that all ends up being interface-driven, Drupal ends up as "the system for people who haven't figured out their use case, yet."
-          This is one of those key ways that the stack makes you lazy: by making it (ostensibly) easier to change data models later, a lazy mess is made of the modeling process.
-          TODO: drop in a picture of Drupal interface vs. screenie of simple models-as-code.
-          </p>
-          </aside>
-          </section>
-          <section>
-          <h3>So, what is Drupal's use case?</h3>
-          <aside>
-          <p>
-          Answer: nobody knows. Anything, and nothing. For a web framework, this is mostly fine. For a CMS, it's way less fine.
-          Again, Drupal's niche is figuring helping you figure out your use case as you go along. In a way, it's kinda a great prototyping rule. Or, it would be, if it didn't take a relaive expert to know what aspects of the prototype were relevant, and what weren't.
-          </p>
-          </aside>
-          </section>
-          </section>
 
           <section>
-          <h2>YOUR STACK IS SUSPECT</h2>
+          <h2>SUSPECT YOUR STACK</h2>
           <aside class="notes">
           Drupal is guilty of many poor practices. But it's generally true that *any* system you work with is going to mislead you, at least a bit.
 
@@ -239,15 +254,49 @@
           </aside>
           </section>
           <section>
-            TODO - graph of thinger
+          <h2>Lazy vs. Tight</h3>
+          <div class="supergraph"></div>
+          <script type="text/javascript">
+            // Generate some data.
+            function f1 (x) {
+              return Math.log((x * 5 )) / Math.LN10;;
+              // return Math.exp(-0.5 * (x - 1) * (x - 1))
+            }
+
+            function f2 (x) {
+              return x *  (x * .07 );
+              // return 0.5 * Math.cos(x - 0.5) + 0.1;
+            }
+
+            var xmin = .1,
+            xmax = 7,
+            N = 100,
+            data = d3.range(xmin, xmax, (xmax - xmin) / N).map(function (d) {
+              return {x: d, y: f1(d)};
+            })
+            data2 = d3.range(xmin, xmax, (xmax - xmin) / N).map(function (d) {
+              return {x: d, y: f2(d)};
+              });
+
+              // Build the plot.
+              var plot = xkcdplot();
+              plot("div.supergraph");
+
+              // Add the lines.
+              plot.plot(data);
+              plot.plot(data2, {stroke: "red"});
+
+              // Render the image.
+              plot.xlim([-1.5, 7.5]).draw();
+
+            </script>
           </section>
 			</div>
 
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
-
+    <script src="js/reveal.min.js"></script>
 		<script>
 
 			// Full list of configuration options available here:
